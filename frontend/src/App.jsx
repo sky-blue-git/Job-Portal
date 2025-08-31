@@ -14,6 +14,7 @@ import AdminJobs from "./components/admin/AdminJobs";
 import PostJob from './components/admin/PostJob'
 import Applicants from './components/admin/Applicants'
 import ProtectedRoute from './components/admin/ProtectedRoute'
+import { ThemeProvider } from './components/ThemeProvider'
 
 
 const appRouter = createBrowserRouter([
@@ -73,11 +74,12 @@ const appRouter = createBrowserRouter([
 
 ])
 function App() {
-
   return (
-    <div>
-      <RouterProvider router={appRouter} />
-    </div>
+    <ThemeProvider defaultTheme="system" storageKey="job-portal-theme">
+      <div className="min-h-screen bg-background text-foreground">
+        <RouterProvider router={appRouter} />
+      </div>
+    </ThemeProvider>
   )
 }
 

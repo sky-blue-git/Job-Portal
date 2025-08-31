@@ -9,6 +9,7 @@ import axios from 'axios'
 import { USER_API_END_POINT } from '@/utils/constant'
 import { setUser } from '@/redux/authSlice'
 import { toast } from 'sonner'
+import { ThemeToggle } from '../ThemeToggle'
 
 const Navbar = () => {
     const { user } = useSelector(store => store.auth);
@@ -29,7 +30,7 @@ const Navbar = () => {
         }
     }
     return (
-        <div className='bg-white'>
+        <div className='bg-background border-b'>
             <div className='flex items-center justify-between mx-auto max-w-7xl h-16'>
                 <div>
                     <h1 className='text-2xl font-bold'>Job<span className='text-[#F83002]'>Portal</span></h1>
@@ -53,7 +54,9 @@ const Navbar = () => {
 
 
                     </ul>
-                    {
+                    <div className='flex items-center gap-3'>
+                        <ThemeToggle />
+                        {
                         !user ? (
                             <div className='flex items-center gap-2'>
                                 <Link to="/login"><Button variant="outline">Login</Button></Link>
@@ -97,6 +100,7 @@ const Navbar = () => {
                             </Popover>
                         )
                     }
+                    </div>
 
                 </div>
             </div>
