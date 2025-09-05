@@ -27,25 +27,42 @@ const Jobs = () => {
     }, [allJobs, searchedQuery]);
 
     return (
-        <div>
+        <div className="min-h-screen bg-background">
             <Navbar />
-            <div className='max-w-7xl mx-auto mt-5'>
-                <div className='flex gap-5'>
-                    <div className='w-20%'>
+            <div className='max-w-7xl mx-auto mt-5 px-4 sm:px-6 lg:px-8'>
+                <div className='flex flex-col lg:flex-row gap-5'>
+                    {/* Filter Sidebar - Hidden on mobile, shown on desktop */}
+                    <div className='hidden lg:block lg:w-1/4'>
                         <FilterCard />
                     </div>
+                    
+                    {/* Mobile Filter Toggle - Only shown on mobile */}
+                    <div className='lg:hidden mb-4'>
+                        <FilterCard />
+                    </div>
+                    
+                    {/* Jobs Grid */}
                     {
-                        filterJobs.length <= 0 ? <span>Job not found</span> : (
-                            <div className='flex-1 h-[88vh] overflow-y-auto pb-5'>
-                                <div className='grid grid-cols-3 gap-4'>
+                        filterJobs.length <= 0 ? (
+                            <div className="flex-1 flex items-center justify-center py-12">
+                                <div className="text-center">
+                                    <h3 className="text-lg font-medium text-muted-foreground">No jobs found</h3>
+                                    <p className="text-sm text-muted-foreground mt-2">Try adjusting your search criteria</p>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className='flex-1 min-h-[70vh] overflow-y-auto pb-5'>
+                                <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6'>
                                     {
                                         filterJobs.map((job) => (
                                             <motion.div
-                                                initial={{ opacity: 0, x: 100 }}
-                                                animate={{ opacity: 1, x: 0 }}
-                                                exit={{ opacity: 0, x: -100 }}
+                                                initial={{ opacity: 0, y: 20 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                exit={{ opacity: 0, y: -20 }}
                                                 transition={{ duration: 0.3 }}
-                                                key={job?._id}>
+                                                key={job?._id}
+                                                className="w-full"
+                                            >
                                                 <Job job={job} />
                                             </motion.div>
                                         ))
@@ -56,8 +73,6 @@ const Jobs = () => {
                     }
                 </div>
             </div>
-
-
         </div>
     )
 }
